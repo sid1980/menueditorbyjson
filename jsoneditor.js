@@ -7019,6 +7019,6 @@ JSONEditor.defaults.resolvers.unshift(function(schema) {
   }
 })();
 
-:  window.JSONEditor = JSONEditor;
+window.JSONEditor = JSONEditor;
 })();
 
