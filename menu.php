@@ -162,7 +162,6 @@
 <script>
     JSONEditor.defaults.theme = 'bootstrap3';
     JSONEditor.defaults.iconlib = 'fontawesome4';
-  //  JSONEditor.plugins.sceditor.style = "//cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.default.min.css";
 
 	JSONEditor.defaults.options.object_layout = 'grid';
 
@@ -173,29 +172,28 @@
 		// The schema for the editor
         schema: {
             title: "Menu",
-			format: "grid",
+	    format: "grid",
             $ref: "#/definitions/menu",
             definitions: {
                 menu: {
                     type: "object",
                     id: "menu",
-					    "headerTemplate": "{{ self.name }}",
+		    headerTemplate: "{{ self.name }}",
                     // The object will start with only these properties
                     defaultProperties: [
                         "name",
-						//"children"
+			"children"
                     ],
                     properties: {                        
                         name: {
                             title: "Name",
                             type: "string"
                         },
-						isdivider: {
-						    title: "divider",
-						   type: "string",
-						       "enum": [false,true]
-
-						  },
+			isdivider: {
+			    title: "divider",
+			    type: "string",
+			    "enum": [false,true]
+			},
                         children: {
                           type: "array",
                           // Self-referential schema in array items
@@ -216,7 +214,6 @@
     document.getElementById('submit').addEventListener('click',function() {
         // Get the value from the editor
 		window.location.href = "menu.php?menu="+JSON.stringify(editor.getValue()); 
-        //sconsole.log(editor.getValue());
     });
 
     // Hook up the validation indicator to update its
@@ -228,8 +225,11 @@
     });
 
 <?php if ( is_object($menu) ) {  ?>
-	 editor.setValue(JSON.parse('<?php  echo json_encode($menu);?>'));
-<?php  } ?>
+	editor.setValue(JSON.parse('<?php  echo json_encode($menu);?>'));
+	<?php  } else {
+        ?>
+	editor.setValue(JSON.parse('{"name":"root"}'));
+<?php	} ?>
 </script>
 </body>
 </html>
